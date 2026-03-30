@@ -19,3 +19,34 @@ Perfect for:
 * Beginners learning DSA
 * Interview preparation
 * Strengthening problem-solving skills
+
+# Approach will be-
+## Problem Name
+
+## 🧩 Problem Statement
+
+## 🧠 Intuition
+(How to think about it)
+
+## 🐢 Brute Force Approach
+- Explanation
+- Code
+
+## ⚡ Better Approach (if any)
+
+## 🚀 Optimal Approach
+- Explanation
+- Code
+
+## ⏱ Complexity Analysis
+- Time Complexity
+- Space Complexity
+
+## 🔁 Pattern
+(e.g., Sliding Window, Two Pointer)
+
+## 🌍 Real World Use
+(optional but powerful)
+
+## 🎨 Visualization
+(optional diagrams or links)
