@@ -48,5 +48,3 @@ Perfect for:
 ## 🌍 Real World Use
 (optional but powerful)
 
-## 🎨 Visualization
-(optional diagrams or links)
