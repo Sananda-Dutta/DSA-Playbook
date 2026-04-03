@@ -1,1 +1,63 @@
+ 🧩 Best Time to Buy and Sell Stock (Single Transaction)
+🧠 Intuition
 
+We need to maximize profit by buying once and selling once.
+
+👉 Key idea:
+
+Track the minimum price so far
+Calculate profit at each step
+🐢 Brute Force Approach
+Try all pairs (i, j) where j > i
+Track maximum profit
+Code
+#include <vector>
+using namespace std;
+
+int maxProfit(vector<int>& prices) {
+    int n = prices.size();
+    int maxProfit = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            int profit = prices[j] - prices[i];
+            maxProfit = max(maxProfit, profit);
+        }
+    }
+
+    return maxProfit;
+}
+⚡ Better Approach (if any)
+No need → directly optimal
+🚀 Optimal Approach (Greedy)
+Maintain:
+minPrice → lowest so far
+maxProfit → best profit
+Code
+#include <vector>
+#include <climits>
+using namespace std;
+
+int maxProfit(vector<int>& prices) {
+    int minPrice = INT_MAX;
+    int maxProfit = 0;
+
+    for (int price : prices) {
+        if (price < minPrice) {
+            minPrice = price;
+        } else {
+            maxProfit = max(maxProfit, price - minPrice);
+        }
+    }
+
+    return maxProfit;
+}
+⏱ Complexity Analysis
+Time Complexity: O(n)
+Space Complexity: O(1)
+🔁 Pattern
+Greedy
+Running Minimum
+🌍 Real World Use
+Stock trading optimization
+Best buy/sell timing in fluctuating data
