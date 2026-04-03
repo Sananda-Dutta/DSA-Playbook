@@ -1,0 +1,72 @@
+# 🧩 Single Number I
+## 🧠 Intuition
+
+Every element appears twice except one.
+
+👉 Key idea:
+
+Use XOR property:
+a ^ a = 0
+a ^ 0 = a
+
+So duplicates cancel out → only unique remains
+
+🐢 Brute Force Approach
+Count frequency of each element
+Code
+#include <vector>
+using namespace std;
+
+int singleNumber(vector<int>& nums) {
+    for (int i = 0; i < nums.size(); i++) {
+        int count = 0;
+        for (int j = 0; j < nums.size(); j++) {
+            if (nums[i] == nums[j]) count++;
+        }
+        if (count == 1) return nums[i];
+    }
+    return -1;
+}
+⚡ Better Approach (HashMap)
+Store frequency
+Code
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int singleNumber(vector<int>& nums) {
+    unordered_map<int, int> mp;
+
+    for (int num : nums) {
+        mp[num]++;
+    }
+
+    for (auto& it : mp) {
+        if (it.second == 1) return it.first;
+    }
+
+    return -1;
+}
+🚀 Optimal Approach (XOR)
+XOR all elements
+Code
+#include <vector>
+using namespace std;
+
+int singleNumber(vector<int>& nums) {
+    int result = 0;
+
+    for (int num : nums) {
+        result ^= num;
+    }
+
+    return result;
+}
+⏱ Complexity Analysis
+Time Complexity: O(n)
+Space Complexity: O(1)
+🔁 Pattern
+Bit Manipulation (XOR)
+🌍 Real World Use
+Detecting unique element in duplicated dataset
+Error detection systems
