@@ -1,16 +1,16 @@
-🧩 Remove Duplicates from Sorted Array ⭐
-🧠 Intuition
+# 🧩 Remove Duplicates from Sorted Array ⭐
+## 🧠 Intuition
 
 Since the array is sorted, duplicates are adjacent.
 
-👉 Key idea:
+## 👉 Key idea:
 
 Use two pointers
 Place unique elements at the front
-🐢 Brute Force Approach
+## 🐢 Brute Force Approach
 Use a set to store unique elements
 Copy back to array
-Code
+```CPP
 #include <vector>
 #include <set>
 using namespace std;
@@ -25,9 +25,10 @@ int removeDuplicates(vector<int>& nums) {
 
     return i;
 }
-⚡ Better Approach (Extra Array)
+```
+## ⚡ Better Approach (Extra Array)
 Store unique elements in another array
-Code
+```CPP
 #include <vector>
 using namespace std;
 
@@ -47,11 +48,12 @@ int removeDuplicates(vector<int>& nums) {
 
     return temp.size();
 }
-🚀 Optimal Approach (Two Pointer)
+```
+## 🚀 Optimal Approach (Two Pointer)
 Use:
 i → last unique index
 j → traversal
-Code
+```CPP
 #include <vector>
 using namespace std;
 
@@ -69,11 +71,12 @@ int removeDuplicates(vector<int>& nums) {
 
     return i + 1;
 }
-⏱ Complexity Analysis
+```
+## ⏱ Complexity Analysis
 Time Complexity: O(n)
 Space Complexity: O(1)
-🔁 Pattern
+## 🔁 Pattern
 Two Pointer (Slow & Fast)
-🌍 Real World Use
+## 🌍 Real World Use
 Removing duplicates in sorted datasets
 Data cleaning pipelines
