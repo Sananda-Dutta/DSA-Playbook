@@ -1,1 +1,40 @@
+  [
+  {
+    "topic": "03-Sliding_Window",
 
+    "pattern": "Longest_Subarray_or_Substring_Pattern",
+    "filename": "fruits_into_baskets",
+    "title": "Fruits Into Baskets",
+
+    "intuition": "We need the longest subarray containing at most 2 distinct elements. This is a classic sliding window problem where we expand the window and shrink it when the condition (<=2 distinct fruits) is violated.",
+
+    "approach": "Brute: Generate all subarrays and check distinct count. Better: Use set/map for each starting point. Optimal: Use sliding window with hashmap to track counts and maintain at most 2 distinct fruits.",
+
+    "code": "// BRUTE (O(N^3))\n#include <bits/stdc++.h>\nusing namespace std;\nint totalFruit(vector<int>& fruits) {\n    int n = fruits.size();\n    int maxi = 0;\n    for(int i = 0; i < n; i++) {\n        for(int j = i; j < n; j++) {\n            set<int> st;\n            for(int k = i; k <= j; k++) st.insert(fruits[k]);\n            if(st.size() <= 2) maxi = max(maxi, j - i + 1);\n        }\n    }\n    return maxi;\n}\n\n// BETTER (O(N^2))\nint totalFruitBetter(vector<int>& fruits) {\n    int n = fruits.size();\n    int maxi = 0;\n    for(int i = 0; i < n; i++) {\n        unordered_map<int,int> mp;\n        for(int j = i; j < n; j++) {\n            mp[fruits[j]]++;\n            if(mp.size() > 2) break;\n            maxi = max(maxi, j - i + 1);\n        }\n    }\n    return maxi;\n}\n\n// OPTIMAL (O(N))\nint totalFruitOptimal(vector<int>& fruits) {\n    int n = fruits.size();\n    unordered_map<int,int> mp;\n    int l = 0, maxi = 0;\n\n    for(int r = 0; r < n; r++) {\n        mp[fruits[r]]++;\n\n        while(mp.size() > 2) {\n            mp[fruits[l]]--;\n            if(mp[fruits[l]] == 0) mp.erase(fruits[l]);\n            l++;\n        }\n\n        maxi = max(maxi, r - l + 1);\n    }\n\n    return maxi;\n}",
+
+    "complexity analysis": "Brute: O(N^3), Better: O(N^2), Optimal: O(N)",
+
+    "Pattern": "Variable Size Sliding Window with condition (at most K distinct elements)",
+
+    "real world use": "Used in streaming systems where you need to find longest continuous segment with limited categories (e.g., max 2 product types in a cart, or limited resource usage windows)."
+  },
+  {
+    "topic": "03-Sliding_Window",
+
+    "pattern": "Longest_Subarray_or_Substring_Pattern",
+    "filename": "longest_repeating_character_replacement",
+    "title": "Longest Repeating Character Replacement",
+
+    "intuition": "We want the longest substring where we can replace at most k characters to make all characters same. Key idea: Track the most frequent character in the window. If window size - maxFreq > k, shrink window.",
+
+    "approach": "Brute: Try all substrings and check replacements needed. Better: Use frequency array for each substring. Optimal: Sliding window maintaining max frequency character and shrinking when replacements exceed k.",
+
+    "code": "// BRUTE (O(N^3))\n#include <bits/stdc++.h>\nusing namespace std;\n\nint characterReplacement(string s, int k) {\n    int n = s.size();\n    int maxi = 0;\n\n    for(int i = 0; i < n; i++) {\n        for(int j = i; j < n; j++) {\n            vector<int> freq(26, 0);\n            int maxFreq = 0;\n\n            for(int x = i; x <= j; x++) {\n                freq[s[x] - 'A']++;\n                maxFreq = max(maxFreq, freq[s[x] - 'A']);\n            }\n\n            int len = j - i + 1;\n            if(len - maxFreq <= k) {\n                maxi = max(maxi, len);\n            }\n        }\n    }\n\n    return maxi;\n}\n\n// BETTER (O(N^2))\nint characterReplacementBetter(string s, int k) {\n    int n = s.size();\n    int maxi = 0;\n\n    for(int i = 0; i < n; i++) {\n        vector<int> freq(26, 0);\n        int maxFreq = 0;\n\n        for(int j = i; j < n; j++) {\n            freq[s[j] - 'A']++;\n            maxFreq = max(maxFreq, freq[s[j] - 'A']);\n\n            int len = j - i + 1;\n            if(len - maxFreq <= k) {\n                maxi = max(maxi, len);\n            }\n        }\n    }\n\n    return maxi;\n}\n\n// OPTIMAL (O(N))\nint characterReplacementOptimal(string s, int k) {\n    vector<int> freq(26, 0);\n    int l = 0, maxFreq = 0, maxi = 0;\n\n    for(int r = 0; r < s.size(); r++) {\n        freq[s[r] - 'A']++;\n        maxFreq = max(maxFreq, freq[s[r] - 'A']);\n\n        while((r - l + 1) - maxFreq > k) {\n            freq[s[l] - 'A']--;\n            l++;\n        }\n\n        maxi = max(maxi, r - l + 1);\n    }\n\n    return maxi;\n}",
+
+    "complexity analysis": "Brute: O(N^3), Better: O(N^2), Optimal: O(N)",
+
+    "Pattern": "Variable Size Sliding Window with constraint (window size - maxFreq <= k)",
+
+    "real world use": "Useful in error-tolerant systems like signal processing or typo-tolerant search where limited corrections are allowed to maintain consistency."
+  }
+]
